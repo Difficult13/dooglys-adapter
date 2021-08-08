@@ -1,0 +1,22 @@
+{
+  "name": "kuratovru/dooglys-connector",
+  "description": "API for fast site integration with the Dooglys service",
+  "authors": [
+    {
+      "name": "Ivan Barinov",
+      "email": "vanbrin@ya.ru"
+    }
+  ],
+  "require": {
+    "php": ">=7.4.0",
+    "ramsey/uuid": "4.x-dev",
+    "guzzlehttp/guzzle": "7.4.x-dev",
+    "monolog/monolog": "2.x-dev"
+  },
+  "minimum-stability": "dev",
+  "autoload": {
+    "psr-4": {
+      "DooglysAdapter\\": "src/"
+    }
+  }
+}
