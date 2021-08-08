@@ -9,9 +9,9 @@
   ],
   "require": {
     "php": ">=7.4.0",
-    "ramsey/uuid": "4.x-dev",
-    "guzzlehttp/guzzle": "7.4.x-dev",
-    "monolog/monolog": "2.x-dev"
+    "ramsey/uuid": "4.x",
+    "guzzlehttp/guzzle": "7.4.x",
+    "monolog/monolog": "2.x"
   },
   "autoload": {
     "psr-4": {
