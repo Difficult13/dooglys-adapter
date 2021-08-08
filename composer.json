@@ -1,5 +1,5 @@
 {
-  "name": "kuratovru/dooglys-connector",
+  "name": "dooglys-adapter/dooglys-adapter",
   "description": "API for fast site integration with the Dooglys service",
   "authors": [
     {

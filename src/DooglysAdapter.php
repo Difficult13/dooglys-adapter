@@ -95,7 +95,7 @@ class DooglysAdapter{
     protected $logger;
 
     /**
-     * DooglysConnector constructor.
+     * DooglysAdapter constructor.
      * @param $accessToken
      * @param $domain
      * @param bool $logging
