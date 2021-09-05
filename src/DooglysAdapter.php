@@ -13,7 +13,7 @@ use Monolog\Handler\StreamHandler;
 class DooglysAdapter{
 
     /**
-     * Relative path for getting an product list 123
+     * Relative path for getting an product list
      */
     const GET_PRODUCT_LIST_URI = '/api/v1/nomenclature/product/list';
 
