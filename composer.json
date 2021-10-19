@@ -10,11 +10,8 @@
   "require": {
     "php": ">=7.4.0",
     "guzzlehttp/guzzle": "^7.3",
-    "monolog/monolog": "^2.3",
     "ramsey/uuid": "^4.2"
   },
-  "minimum-stability": "dev",
-  "prefer-stable": true,
   "autoload": {
     "psr-4": {
       "DooglysAdapter\\": "src/"
