@@ -20,13 +20,11 @@ You can find the documentation for Dooglys here API: https://dooglys.com/support
 
 At the moment, the library supports: 
 
-- Create/Read/Update/Delete methods for products, product categories and sale points.
-
-- Create/Read/Update methods for orders.
-
-- Read method for users, warehouses.
-
-The library does not support working with the terminal menu and the loyalty program.
+- Create/Read/Update/Delete methods for products, product categories and sale points;
+- Create/Read/Update methods for orders;
+- Read method for users, warehouses;
+- Working with terminal menu methods;
+- Working with loyalty methods;
 
 ## General concept
 
@@ -91,10 +89,83 @@ $product->price = 150;
 
 ### Dooglys Setting
 
-You can get the current settings of your Dooglys using the `getSettings` command:
+You can get the current settings of your Dooglys using the `getStructureSettings` method:
 
 ```php
-var_dump($dooglys->getSettings());
+var_dump($dooglys->getStructureSettings());
+```
+
+### Terminal menu
+
+You can interact with terminal menu using the methods:
+
+```php
+$menu_id = 'your-menu-id';
+
+$params = $dooglys->getMenuKit($menu_id);
+var_dump($params);
+
+$params = $dooglys->getMenu($menu_id);
+var_dump($params);
+
+$params = $dooglys->getModifier($menu_id);
+var_dump($params);
+
+$params = $dooglys->getKitProducts($menu_id);
+var_dump($params);
+```
+
+### Loyalty
+
+You can work with the Dooglys loyalty program using the methods:
+```php
+$settings = $dooglys->getLoyaltySettings();
+var_dump($settings);
+
+$options = [
+    'num' => 'your-card-num',
+    //or
+    'track2' => 'your-track2'
+];
+$card_info = $dooglys->getCardInfo($options);
+var_dump($card_info);
+
+
+$options = [
+    'card_id' => 'your-card-id',
+    'date' => \time (),
+    'total_cost' => 1000,
+    'order_type' => 'sale_point',
+    'auth_type' => 'track2',
+    'sale_point_id' => 'your-sale-point-id',
+    'order_items' => [
+        [
+            'product_id' => 'your-product-id',
+            'quantity' => 10,
+            'price' => 100,
+            'cost' => 100,
+            'total_cost' => 1000
+        ],
+    ],
+];
+$transaction_info = $dooglys->buyNew($options);
+var_dump($transaction_info);
+
+
+$options = [
+    "transaction_id" => "your-transaction-id",
+    "auth_type" => "track2",
+    "balance_down" => 25
+];
+$transaction_info = $dooglys->buyCommit($options);
+var_dump($transaction_info);
+
+
+$options = [
+    "transaction_id" => "your-transaction-id",
+];
+$transaction_info = $dooglys->buyReturn($options);
+var_dump($transaction_info);
 ```
 
 ### User
