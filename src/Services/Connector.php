@@ -4,6 +4,7 @@ namespace DooglysAdapter\Services;
 
 use DooglysAdapter\Interfaces\IConnector;
 use GuzzleHttp\Client;
+use DooglysAdapter\Exceptions\RequestException;
 
 class Connector implements IConnector {
 
@@ -14,6 +15,8 @@ class Connector implements IConnector {
     private string $baseUri;
     private Client $client;
 
+    private $timeout = 10;
+
     public function __construct( string $accessToken, string $domain ){
         $this->accessToken = $accessToken;
         $this->domain = $domain;
@@ -23,15 +26,22 @@ class Connector implements IConnector {
     }
 
     public function send( string $uri, string $method, array $params = [] ): array{
-
         $params = $this->prepareParams($params, $method);
 
-        $response = $this->client->request($method, $uri, $params);
+        try {
+            $response = $this->client->request($method, $uri, $params);
+        } catch ( \GuzzleHttp\Exception\RequestException $guzzleException ) {
+
+            if ($guzzleException->getResponse() !== null)
+                throw new RequestException(
+                    'Dooglys-adapter error: Request failed - ' . $guzzleException->getResponse()->getBody()->getContents(), $guzzleException->getCode(), $guzzleException
+                );
+
+            throw $guzzleException;
+        }
 
         $result = (string) $response->getBody();
-
         $result = $this->responseDecode($result);
-
         return $result;
     }
 
@@ -42,11 +52,12 @@ class Connector implements IConnector {
     private function setClient(){
         $this->client = new Client([
             'base_uri' => $this->baseUri,
+            'timeout' => $this->timeout,
+            'User-Agent' => 'dooglys-adapter',
             'headers' => [
                 'Access-Token' => $this->accessToken,
                 'Tenant-Domain' => $this->domain,
             ],
-            'timeout' => 10
         ]);
     }
 
@@ -58,14 +69,14 @@ class Connector implements IConnector {
             ];
         else:
             $params = [
-                'form_params' => $params
+                'json' => $params
             ];
         endif;
 
         return $params;
     }
 
-    private function responseDecode( string $data ){
+    private function responseDecode( string $data ) : array{
         return json_decode($data, true) ?? [];
     }
 }

@@ -53,7 +53,7 @@ class DooglysAdapter implements IStructure, ITerminalMenu, ILoyalty {
     public function __call( string $name, array $arguments = [] ){
         $classEntity = $this->getClassName($name);
         if ( $arguments || !class_exists( $classEntity ) )
-            throw new \BadMethodCallException("Call to undefined method {$name}");
+            throw new \BadMethodCallException("Dooglys-adapter error: Call to undefined method {$name}");
 
         return $this->build($name);
     }
@@ -62,7 +62,7 @@ class DooglysAdapter implements IStructure, ITerminalMenu, ILoyalty {
         $classEntity = $this->getClassName($entity);
 
         if (!class_exists( $classEntity ))
-            throw new NotExistClassException("Attempt to access a non-existent class {$classEntity}");
+            throw new NotExistClassException("Dooglys-adapter error: Attempt to access a non-existent class {$classEntity}");
 
         $entityObject = new $classEntity($this->connector, $this->generator);
 

@@ -85,6 +85,14 @@ $product->price = 150;
 
 > As you have already understood, the library will throw exceptions for any unexpected behavior.
 
+## Exceptions
+
+In case of unexpected behavior of the program, the following exceptions will be thrown:
+
+- EmptyElementException - it is thrown when trying to perform an operation with an empty object (not saved in Dooglys);
+- NotExistClassException - it is thrown out when trying to create a non-existent entity;
+- RequestException - a wrapper around the GuzzleHttp request, which is issued in case of network errors and response codes other than 200;
+
 ## Manual
 
 ### Dooglys Setting

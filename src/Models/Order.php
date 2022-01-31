@@ -41,7 +41,7 @@ class Order extends BaseEntity implements IGetById, IGetList, ISave, IDelete {
 
     public function setOrdered() : self{
         if ( !$this->id )
-            throw new EmptyElementException('Attempt to set ordered an empty element');
+            throw new EmptyElementException('Dooglys-adapter error: Attempt to set ordered an empty element');
 
         $uri = str_replace('{id}', $this->id, self::UPDATE_URI);
 
@@ -57,7 +57,7 @@ class Order extends BaseEntity implements IGetById, IGetList, ISave, IDelete {
 
     public function cancelOrder() : self{
         if ( !$this->id )
-            throw new EmptyElementException('Attempt to cancel an empty element');
+            throw new EmptyElementException('Dooglys-adapter error: Attempt to cancel an empty order');
 
         $uri = str_replace('{id}', $this->id, self::UPDATE_URI);
 
@@ -75,7 +75,7 @@ class Order extends BaseEntity implements IGetById, IGetList, ISave, IDelete {
 
     public function completeOrder() : self{
         if ( !$this->id )
-            throw new EmptyElementException('Attempt to complete an empty element');
+            throw new EmptyElementException('Dooglys-adapter error: Attempt to complete an empty order');
 
         $uri = str_replace('{id}', $this->id, self::UPDATE_URI);
 
